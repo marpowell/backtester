@@ -2,9 +2,9 @@ import data_reader
 import strategies
 
 date, op, hi, lo, cl, adj, vo = data_reader.read_stock_data("AAPL")
-signals = strategies.sma_crossover(date, adj)
+signals = strategies.sma_crossover(date, adj) #this line dictates which strat to use
 	
-equity = 10000 #start with $10,000 cash
+equity = 100000 #start with $100,000 cash
 shares = 0
 portfolio = [["Date", "Cash", "Shares of AAPL"]]
 
@@ -18,7 +18,7 @@ for i in range(len(signals)):
 	elif signals[i][1] == "Sell" and shares != 0: #at sell signals, sell all remaining
 		equity += shares * price                  #stock at the current day's price
 		shares = 0
-	#note that this investment strategy is buy only--no short selling
+	#this investment strategy is long only--no short selling
 	portfolio.append([signals[i][0], equity, shares]) 		
 
 if shares > 0: #if there are any shares leftover on today's date, cash out
