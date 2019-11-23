@@ -1,1 +1,1 @@
-# backtester
+uses Yahoo Finance daily data
