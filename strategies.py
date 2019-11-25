@@ -1,15 +1,16 @@
 from data_reader import read_stock_data
 import math
 
-def stdev(data): #standard deviation calculator
-	ave = sum(data)/len(data)
+def stdev(sample): #standard deviation calculator
+	ave = sum(sample)/len(sample)
 	total = 0
-	for each in data:
+	for each in sample:
 		total += math.pow(each-ave,2)
-	return math.sqrt(total/len(data))
+	return math.sqrt(total/len(sample))
 	
-def bollinger_bands(date, adj):
-
+def bollinger_bands(data):
+	date = data[0]
+	adj = data[5]
 	bbands = [["Index", "Date", "Upper Band", "Moving Average", "Lower Band", "Price"]]
 	#initialize the array to heading
 	for i in range(len(adj)):
@@ -32,7 +33,9 @@ def bollinger_bands(date, adj):
 			
 	return signals
 
-def sma_crossover(date, adj):
+def sma_crossover(data):
+	date = data[0]
+	adj = data[5]
 	sma9 = [] #SMA9 for Simple Moving Average with a window of 9 bars
 	sma18 = []
 	signals = [["Date", "Signal", "Price"]]
@@ -59,7 +62,9 @@ def sma_crossover(date, adj):
 	
 	return signals
 	
-def macd(date, adj):
+def macd(data):
+	date = data[0]
+	adj = data[5]
 	ema12 = []
 	ema26 = []
 	macd = [] #the difference ema12-ema26
@@ -96,8 +101,7 @@ def macd(date, adj):
 		
 	return signals
 			
-def buy_and_hold(date, adj):
-	return([[date[0], "Buy", adj[0]]])			
-			
-			
-				
+def buy_and_hold(data):
+	date = data[0]
+	adj = data[5]
+	return([["Date", "Signal", "Price"], [date[0], "Buy", adj[0]]])	
